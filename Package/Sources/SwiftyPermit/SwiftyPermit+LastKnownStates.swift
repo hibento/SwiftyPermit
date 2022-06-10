@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit+LastKnownStates.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 18.05.22.
 //  Copyright © 2022 hibento. All rights reserved.
@@ -24,35 +24,35 @@ extension SwiftyPermit {
         // states). So we're silently reloading the states and change them if necessary.
         // lastKnownPermissionStates.removeAll()
         
-        var permissions: [Permission] = []
+        var permits: [SwiftyPermitVariant] = []
         
         if cameraRequest == nil {
-            permissions.append(.cameraVideo)
+            permits.append(.cameraVideo)
         }
         
         if photoLibraryRequest == nil {
-            permissions.append(.photoLibrary)
+            permits.append(.photoLibrary)
         }
         
         if userNotificationRequest == nil {
-            permissions.append(.userNotification)
+            permits.append(.userNotification(.default))
         }
         
         if locationRequest == nil {
-            permissions.append(.location(.whenInUse(.full)))
+            permits.append(.location(.whenInUse(.full)))
         }
         
         if localNetworkRequest == nil {
-            permissions.append(.localNetwork)
+            permits.append(.localNetwork)
         }
     
         if trackingRequest == nil {
-            permissions.append(.tracking)
+            permits.append(.tracking)
         }
         
         logger.info("Fetching last known permissions ...")
                 
-        hasPermissions(permissions) { _ in
+        hasPermits(permits) { _ in
             
             logger.info("Fetched last known permissions")
             self.printLastKnownStates()
@@ -63,7 +63,7 @@ extension SwiftyPermit {
     
     func printLastKnownStates() {
         
-        lastKnownPermissionStates.forEach { permission, isGranted in
+        lastKnownPermitStates.forEach { permission, isGranted in
             
             if let isGranted = isGranted {
                 
@@ -81,11 +81,11 @@ extension SwiftyPermit {
         
     }
     
-    func processLastKnownState(old: [Permission: Bool?],
-                               new: [Permission: Bool?]) {
-        for (permission, isGranted) in new {
-            permissionChanged.send(.init(permission: permission,
-                                         wasGranted: (old[permission]) ?? nil,
+    func processLastKnownState(old: [SwiftyPermitVariant: Bool?],
+                               new: [SwiftyPermitVariant: Bool?]) {
+        for (permit, isGranted) in new {
+            permissionChanged.send(.init(permit: permit,
+                                         wasGranted: (old[permit]) ?? nil,
                                          isGranted: isGranted))
         }
         

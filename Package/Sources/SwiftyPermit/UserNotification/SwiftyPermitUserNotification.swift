@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitUserNotification.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 01.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -24,8 +24,7 @@ extension SwiftyPermit {
             return .shared
         }
         
-        public func state(_ requestVariant: Variant? = nil,
-                          _ completion: @escaping (State) -> Void) {
+        public func state(_ completion: @escaping (State) -> Void) {
             
             unc.getNotificationSettings { settings in
                 

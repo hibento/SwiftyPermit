@@ -1,5 +1,5 @@
 //
-//  LocationPermissionRequest.swift
+//  SwiftyPermitLocationRequest.swift
 //  
 //
 //  Created by Christian Steffens on 08.06.2022.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-public final class LocationPermissionRequest: PermissionRequest {
+public final class SwiftyPermitLocationRequest: SwiftyPermitRequest {
     
     // MARK: - Variables
     
-    let variant: SwiftyPermit.Location.Variant
+    let actualPermit: SwiftyPermitLocationVariant
     
     /// Purpose key for system permission dialog, strictly optional and
     /// for now only needed for escalation in location permission's accuracy.
@@ -20,16 +20,16 @@ public final class LocationPermissionRequest: PermissionRequest {
     
     // MARK: - Initializer
     
-    public init(_ variant: SwiftyPermit.Location.Variant,
+    public init(_ permit: SwiftyPermitLocationVariant,
                 escalateIfNecessary: Bool = true,
                 openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
                 purposeKey: String? = nil,
-                _ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
-        self.variant = variant
+        self.actualPermit = permit
         self.purposeKey = purposeKey
         
-        super.init(permission: .location(variant),
+        super.init(permit: .location(permit),
                    escalateIfNecessary: escalateIfNecessary,
                    openSettingsIfNecessary: openSettingsIfNecessary,
                    completion)

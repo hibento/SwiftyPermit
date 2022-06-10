@@ -14,7 +14,7 @@ struct ContentViewModel {
 
     func requestLocalNetwork() {
         
-        let request: LocalNetworkPermissionRequest = .init { result in
+        let request: SwiftyPermitLocalNetworkRequest = .init { result in
 
             switch result {
                 
@@ -35,7 +35,7 @@ struct ContentViewModel {
 
     func requestPhotoLibrary() {
         
-        let request: PhotoLibraryPermissionRequest = .init { result in
+        let request: SwiftyPermitPhotoLibraryRequest = .init { result in
 
             switch result {
                 
@@ -54,7 +54,7 @@ struct ContentViewModel {
     
     func requestCamera() {
         
-        let request: CameraPermissionRequest = .init { result in
+        let request: SwiftyPermitCameraRequest = .init { result in
 
             switch result {
                 
@@ -75,7 +75,7 @@ struct ContentViewModel {
 
     func requestUserNotification() {
         
-        let request: UserNotificationPermissionRequest = .init { result in
+        let request: SwiftyPermitUserNotificationRequest = .init { result in
 
             switch result {
                 
@@ -96,7 +96,7 @@ struct ContentViewModel {
 
     func requestTracking() {
         
-        let request: TrackingPermissionRequest = .init { result in
+        let request: SwiftyPermitTrackingRequest = .init { result in
 
             switch result {
                 
@@ -117,7 +117,7 @@ struct ContentViewModel {
     
     func requestLocationWhenInUseReduced() {
         
-        let request: LocationPermissionRequest = .init(.whenInUse(.reduced)) { result in
+        let request: SwiftyPermitLocationRequest = .init(.whenInUse(.reduced)) { result in
 
             switch result {
                 
@@ -136,7 +136,7 @@ struct ContentViewModel {
     
     func requestLocationWhenInUseFull() {
         
-        let request: LocationPermissionRequest = .init(.whenInUse(.full),
+        let request: SwiftyPermitLocationRequest = .init(.whenInUse(.full),
                                                        escalateIfNecessary: true,
                                                        purposeKey: "LocationAccuracyEscalationReason") { result in
             
@@ -157,7 +157,7 @@ struct ContentViewModel {
  
     func requestLocationAlwaysReduced() {
         
-        let request: LocationPermissionRequest = .init(.always(.reduced),
+        let request: SwiftyPermitLocationRequest = .init(.always(.reduced),
                                                        escalateIfNecessary: true,
                                                        openSettingsIfNecessary: nil,
                                                        purposeKey: nil) { result in
@@ -179,7 +179,7 @@ struct ContentViewModel {
  
     func requestLocationAlwaysFull() {
         
-        let request: LocationPermissionRequest = .init(.always(.full),
+        let request: SwiftyPermitLocationRequest = .init(.always(.full),
                                                        escalateIfNecessary: true,
                                                        openSettingsIfNecessary: nil,
                                                        purposeKey: "LocationAccuracyEscalationReason") { result in

@@ -1,5 +1,5 @@
 //
-//  CameraPermissionRequest.swift
+//  SwiftyPermitCameraRequest.swift
 //  
 //
 //  Created by Christian Steffens on 08.06.2022.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-public final class CameraPermissionRequest: PermissionRequest {
+public final class SwiftyPermitCameraRequest: SwiftyPermitRequest {
 
     // MARK: - Initializer
     
     public init(openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
-                _ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
-        super.init(permission: .cameraVideo,
+        super.init(permit: .cameraVideo,
                    escalateIfNecessary: false,
                    openSettingsIfNecessary: openSettingsIfNecessary,
                    completion)

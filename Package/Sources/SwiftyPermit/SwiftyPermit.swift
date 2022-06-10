@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 01.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -13,9 +13,9 @@ public final class SwiftyPermit: NSObject {
     
     // MARK: - Typealias
     
-    public typealias RequestCompletion = (Result<Void, PermissionError>) -> Void
+    public typealias RequestCompletion = (Result<Void, SwiftyPermitError>) -> Void
     public typealias OpenSettings = (@escaping (Bool) -> Void) -> Void
-    public typealias ReadinessCompletion = ((Result<Void, PermissionError>) -> Void)
+    public typealias ReadinessCompletion = ((Result<Void, SwiftyPermitError>) -> Void)
     
     // MARK: - Singleton
     
@@ -37,9 +37,9 @@ public final class SwiftyPermit: NSObject {
     
     private (set) public var state: State = .initNecessary
     
-    internal (set) public var lastKnownPermissionStates: [Permission: Bool?] = [:] {
+    internal (set) public var lastKnownPermitStates: [SwiftyPermitVariant: Bool?] = [:] {
         didSet {
-            processLastKnownState(old: oldValue, new: lastKnownPermissionStates)
+            processLastKnownState(old: oldValue, new: lastKnownPermitStates)
         }
     }
     
@@ -48,25 +48,25 @@ public final class SwiftyPermit: NSObject {
     
     /// Completion handler for location permission request that couldn't be
     /// resolved immediately, e.g. user needs to switch to the app settings.
-    var locationRequest: LocationPermissionRequest?
+    var locationRequest: SwiftyPermitLocationRequest?
     
     /// Completion handler for camera permission request that couldn't be
     /// resolved immediately, e.g. user needs to switch to the app settings.
-    var cameraRequest: CameraPermissionRequest?
+    var cameraRequest: SwiftyPermitCameraRequest?
   
     /// Completion handler for user notification permission request that couldn't be
     /// resolved immediately, e.g. user needs to switch to the app settings.
-    var userNotificationRequest: UserNotificationPermissionRequest?
+    var userNotificationRequest: SwiftyPermitUserNotificationRequest?
 
     /// Completion handler for camera permission request that couldn't be
     /// resolved immediately, e.g. user needs to switch to the app settings.
-    var photoLibraryRequest: PhotoLibraryPermissionRequest?
+    var photoLibraryRequest: SwiftyPermitPhotoLibraryRequest?
     
     /// Completion handler for local network permission request that couldn't be
     /// resolved immediately, e.g. user needs to switch to the app settings.
-    var localNetworkRequest: LocalNetworkPermissionRequest?
+    var localNetworkRequest: SwiftyPermitLocalNetworkRequest?
 
-    var trackingRequest: TrackingPermissionRequest?
+    var trackingRequest: SwiftyPermitTrackingRequest?
     
     /// Verbose logging
     public var verbose: Bool = false
@@ -135,7 +135,7 @@ public final class SwiftyPermit: NSObject {
     
     // MARK: - Publisher
     
-    public let permissionChanged = PassthroughSubject<PermissionChanged, Never>()
+    public let permissionChanged = PassthroughSubject<SwiftyPermitChanged, Never>()
     
     // MARK: - Relationships
     
@@ -163,7 +163,7 @@ public final class SwiftyPermit: NSObject {
         return Self.completionQueue
     }
     
-    public var localNetworkPermissionRequestedOnce: Bool {
+    public var localNetworkSwiftyPermitRequestedOnce: Bool {
         return LocalNetwork.permissionRequestedOnce
     }
     
@@ -188,9 +188,9 @@ public final class SwiftyPermit: NSObject {
         }
     }
     
-    private func initialize(_ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+    private func initialize(_ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
-        func completionHandler(_ result: Result<Void, PermissionError>) {
+        func completionHandler(_ result: Result<Void, SwiftyPermitError>) {
             completionQueue.async {
                 
                 // Don't forget any potential enqueued readiness call here.

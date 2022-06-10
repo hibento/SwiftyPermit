@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocalNetworkCheck.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 07.05.22.
 //  Copyright © 2022 hibento. All rights reserved.
@@ -11,6 +11,9 @@ import UIKit
 
 extension SwiftyPermit.LocalNetwork {
     
+    /// Checks for the current permission state for local network access.
+    /// As there's no public API to do so, we're relying on a workaround:
+    /// https://stackoverflow.com/a/67758105/2953963
     class Check: NSObject, NetServiceDelegate {
         
         // MARK: - Typealias

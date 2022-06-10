@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocationTransitionType.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 31.08.20.
 //  Copyright © 2020 hibento. All rights reserved.
@@ -64,13 +64,13 @@ extension SwiftyPermit.Location {
             
         }
         
-        public init(currentState: State, requestVariant: Variant) {
+        public init(currentState: State, permit: SwiftyPermitLocationVariant) {
             
             switch currentState {
               
             case .virgin:
                 
-                switch requestVariant {
+                switch permit {
                 
                 case .whenInUse(let requestedAccuracy):
                     self = .virginToWhenInUse(requestedAccuracy)
@@ -82,7 +82,7 @@ extension SwiftyPermit.Location {
                 
             case .whenInUse(let currentAccuracy):
                 
-                switch requestVariant {
+                switch permit {
                 
                 case .whenInUse(let requestedAccuracy):
                     
@@ -103,7 +103,7 @@ extension SwiftyPermit.Location {
                 
                 if currentAccuracy == .full {
                     self = .granted
-                } else if currentAccuracy == requestVariant.accuracy {
+                } else if currentAccuracy == permit.accuracy {
                     self = .granted
                 } else {
                     self = .reducedToFullAccuracy
@@ -111,7 +111,7 @@ extension SwiftyPermit.Location {
             
             case .deniedUser:
                 
-                switch requestVariant {
+                switch permit {
                 
                 case .whenInUse(let requestedAccuracy):
                     self = .deniedByUserToWhenInUse(requestedAccuracy)

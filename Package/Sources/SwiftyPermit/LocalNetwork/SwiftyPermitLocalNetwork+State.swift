@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocalNetwork+State.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 08.05.22.
 //  Copyright © 2022 hibento. All rights reserved.
@@ -16,7 +16,7 @@ extension SwiftyPermit.LocalNetwork {
     /// Optional the state check can be (en)forced, in regard that the
     /// state can normally only be checked after (!) the permission has been
     /// requested at least once.
-    public func state(_ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+    public func state(_ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
         // Enqueue request
         stateCompletionHandler.append(completion)
@@ -30,7 +30,7 @@ extension SwiftyPermit.LocalNetwork {
             // So we're free to request it any time from now (implicitly).
             Self.permissionRequestedOnce = true
             
-        } catch let error as PermissionError {
+        } catch let error as SwiftyPermitError {
             completion(.failure(error))
         } catch {
             completion(.failure(.system(error)))

@@ -10,11 +10,11 @@ import Foundation
 
 extension SwiftyPermit {
     
-    func infoPList(contains entry: PermissionInfoPListEntry) -> Bool {
+    func infoPList(contains entry: SwiftyPermitPListEntry) -> Bool {
         return infoPListValue(entry) != nil
     }
     
-    func infoPListValue(_ entry: PermissionInfoPListEntry) -> String? {
+    func infoPListValue(_ entry: SwiftyPermitPListEntry) -> String? {
         
         switch entry {
             

@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitUserNotification+Response.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 12.10.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -27,7 +27,7 @@ extension SwiftyPermit.UserNotification {
     }
     
     func process(state: SwiftyPermit.UserNotification.State,
-                 request: UserNotificationPermissionRequest) {
+                 request: SwiftyPermitUserNotificationRequest) {
         
         switch state {
             

@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocation+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 05.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -11,7 +11,7 @@ import CoreLocation
 
 extension SwiftyPermit.Location {
     
-    func request(_ request: LocationPermissionRequest) {
+    func request(_ request: SwiftyPermitLocationRequest) {
 
         manager.waitForReadiness { [weak self] in
             
@@ -21,7 +21,8 @@ extension SwiftyPermit.Location {
             }
 
             let currentState = self.state
-            let transition = TransitionType(currentState: currentState, requestVariant: request.variant)
+            let transition = TransitionType(currentState: currentState,
+                                            permit: request.actualPermit)
         
             switch transition {
                 
@@ -60,17 +61,17 @@ extension SwiftyPermit.Location {
         
     }
     
-    private func virginToWhenInUse(_ request: LocationPermissionRequest) {
+    private func virginToWhenInUse(_ request: SwiftyPermitLocationRequest) {
         manager.locationRequest = request
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func virginToAlways(_ request: LocationPermissionRequest) {
+    private func virginToAlways(_ request: SwiftyPermitLocationRequest) {
         manager.locationRequest = request
         locationManager.requestAlwaysAuthorization()
     }
     
-    private func whenInUseToAlways(_ request: LocationPermissionRequest) {
+    private func whenInUseToAlways(_ request: SwiftyPermitLocationRequest) {
         guard request.escalateIfNecessary else {
             logger.warning("Always requested, but escalation prohibited")
             request.finish(.failure(.deniedUser))
@@ -81,7 +82,7 @@ extension SwiftyPermit.Location {
         locationManager.requestAlwaysAuthorization()
     }
     
-    private func reducedToFullAccuracy(_ request: LocationPermissionRequest) {
+    private func reducedToFullAccuracy(_ request: SwiftyPermitLocationRequest) {
 
         guard request.escalateIfNecessary else {
             logger.warning("Full accuracy requested, but escalation prohibited")
@@ -96,11 +97,11 @@ extension SwiftyPermit.Location {
         }
         
         let dictionary: String = "NSLocationTemporaryUsageDescriptionDictionary"
-        let entry: PermissionInfoPListEntry = .dictionaryKey(dictionary: dictionary, key: purposeKey)
+        let entry: SwiftyPermitPListEntry = .dictionaryKey(dictionary: dictionary, key: purposeKey)
         
         guard let purposeValue = manager.infoPListValue(entry) else {
             logger.error("PurposeKey \(purposeKey) not found")
-            request.finish(.failure(.infoPListEntryMissing(entry)))
+            request.finish(.failure(.plistEntryMissing(entry)))
             return
         }
 
@@ -152,7 +153,7 @@ extension SwiftyPermit.Location {
 
     }
     
-    private func deniedByUser(_ request: LocationPermissionRequest) {
+    private func deniedByUser(_ request: SwiftyPermitLocationRequest) {
 
         guard request.escalateIfNecessary else {
             logger.warning("LocationPermission whenInUse was denied by user")

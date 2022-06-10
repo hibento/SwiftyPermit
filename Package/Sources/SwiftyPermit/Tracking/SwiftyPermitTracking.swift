@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitTracking.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 09.06.22.
 //  Copyright © 2022 hibento. All rights reserved.
@@ -29,7 +29,7 @@ extension SwiftyPermit {
             
             guard manager.state == .initCompleted else {
                 logger.error("SwiftyPermit is not initialized")
-                throw PermissionError.notInitialized
+                throw SwiftyPermitError.notInitialized
             }
             
             switch state {

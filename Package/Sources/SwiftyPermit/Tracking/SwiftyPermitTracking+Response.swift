@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitTracking+Response.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 09.06.22.
 //  Copyright © 2022 hibento. All rights reserved.
@@ -26,7 +26,7 @@ extension SwiftyPermit.Tracking {
     }
     
     func process(state: State,
-                 request: TrackingPermissionRequest) {
+                 request: SwiftyPermitTrackingRequest) {
         
         switch state {
         

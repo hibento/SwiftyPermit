@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocalNetwork+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 13.11.20.
 //  Copyright © 2020 hibento. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 
 extension SwiftyPermit.LocalNetwork {
     
-    func request(_ request: LocalNetworkPermissionRequest) {
+    func request(_ request: SwiftyPermitLocalNetworkRequest) {
  
         state { result in
             

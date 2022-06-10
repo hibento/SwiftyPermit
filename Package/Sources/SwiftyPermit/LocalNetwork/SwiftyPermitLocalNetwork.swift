@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocalNetwork.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 10.10.21.
 //  Copyright © 2021 hibento. All rights reserved.
@@ -16,7 +16,7 @@ extension SwiftyPermit {
         
         lazy var check: Check = setupNetworkCheck(verbose: false)
         
-        var stateCompletionHandler: [((Result<Void, PermissionError>) -> Void)] = []
+        var stateCompletionHandler: [((Result<Void, SwiftyPermitError>) -> Void)] = []
         
         // MARK: - Properties
         
@@ -97,7 +97,7 @@ extension SwiftyPermit {
         
         // MARK: - CompletionHandler
         
-        func completionHandler(_ result: Result<Void, PermissionError>) {
+        func completionHandler(_ result: Result<Void, SwiftyPermitError>) {
             
             manager.completionQueue.async {
                 

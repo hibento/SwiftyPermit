@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit+PhotoLibrary+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 12.10.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -12,7 +12,7 @@ import Photos
 
 extension SwiftyPermit.PhotoLibrary {
     
-    func request(_ request: PhotoLibraryPermissionRequest) {
+    func request(_ request: SwiftyPermitPhotoLibraryRequest) {
 
         switch state {
         
@@ -63,7 +63,7 @@ extension SwiftyPermit.PhotoLibrary {
         
     }
     
-    private func doRequest(_ request: PhotoLibraryPermissionRequest) {
+    private func doRequest(_ request: SwiftyPermitPhotoLibraryRequest) {
         
         logger.debug("PhotoLibraryPermission always granted since iOS 14")
             

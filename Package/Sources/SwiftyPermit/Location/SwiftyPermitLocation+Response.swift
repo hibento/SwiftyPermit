@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocation+Response.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 05.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -26,7 +26,7 @@ extension SwiftyPermit.Location {
         // Important: Release request immediately
         manager.locationRequest = nil
 
-        switch (request.variant, state) {
+        switch (request.actualPermit, state) {
             
         case (.whenInUse(let expectedAccuracy), .whenInUse(let actualAccuracy)):
             if expectedAccuracy <= actualAccuracy {

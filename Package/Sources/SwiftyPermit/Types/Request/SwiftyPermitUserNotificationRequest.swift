@@ -1,5 +1,5 @@
 //
-//  UserNotificationPermissionRequest.swift
+//  SwiftyPermitUserNotificationRequest.swift
 //  
 //
 //  Created by Christian Steffens on 08.06.2022.
@@ -8,21 +8,21 @@
 
 import Foundation
 
-public final class UserNotificationPermissionRequest: PermissionRequest {
+public final class SwiftyPermitUserNotificationRequest: SwiftyPermitRequest {
     
     // MARK: - Variables
     
-    let variant: SwiftyPermit.UserNotification.Variant
+    let actualPermit: SwiftyPermitUserNotificationVariant
     
     // MARK: - Initializer
     
-    public init(variant: SwiftyPermit.UserNotification.Variant = SwiftyPermit.UserNotification.defaultVariant,
+    public init(permit: SwiftyPermitUserNotificationVariant = .default,
                 openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
-                _ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
-        self.variant = variant
+        self.actualPermit = permit
         
-        super.init(permission: .userNotification,
+        super.init(permit: .userNotification(actualPermit),
                    escalateIfNecessary: false,
                    openSettingsIfNecessary: openSettingsIfNecessary,
                    completion)

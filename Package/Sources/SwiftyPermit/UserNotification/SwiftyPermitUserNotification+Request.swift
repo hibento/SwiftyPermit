@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitUserNotification+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 12.10.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -11,9 +11,11 @@ import UserNotifications
 
 extension SwiftyPermit.UserNotification {
     
-    func request(_ request: UserNotificationPermissionRequest) {
+    func request(_ request: SwiftyPermitUserNotificationRequest) {
                 
-        unc.requestAuthorization(options: request.variant) { granted, error in
+        let options = request.actualPermit.unAuthorizationOptions
+        
+        unc.requestAuthorization(options: options) { granted, error in
 
             if let error = error {
                 logger.error("Requesting NotificationPermission failed: \(error.localizedDescription)")

@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitCamera+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 12.10.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -11,7 +11,7 @@ import AVFoundation
 
 extension SwiftyPermit.Camera {
     
-    func request(_ request: CameraPermissionRequest) {
+    func request(_ request: SwiftyPermitCameraRequest) {
 
         switch state {
         
@@ -64,7 +64,7 @@ extension SwiftyPermit.Camera {
         
     }
     
-    private func doRequest(_ request: CameraPermissionRequest) {
+    private func doRequest(_ request: SwiftyPermitCameraRequest) {
                         
         AVCaptureDevice.requestAccess(for: .video) { granted in
  

@@ -1,6 +1,6 @@
 //
-//  PermissionError.swift
-//  Permission-Manager
+//  SwiftyPermitError.swift
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 10.10.21.
 //  Copyright © 2021 hibento. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum PermissionError: Error {
+public enum SwiftyPermitError: Error {
     
     case `deinit`
     case notInitialized
@@ -18,7 +18,7 @@ public enum PermissionError: Error {
     case restricted
     case notDetermined
     
-    case infoPListEntryMissing(PermissionInfoPListEntry)
-    case location(LocationPermissionError)
+    case plistEntryMissing(SwiftyPermitPListEntry)
+    case location(SwiftyPermitLocationError)
     
 }

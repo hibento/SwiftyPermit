@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocalNetwork+Response.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 13.11.20.
 //  Copyright © 2020 hibento. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit+Notification.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 05.09.19.
 //  Copyright © 2019 hibento. All rights reserved.

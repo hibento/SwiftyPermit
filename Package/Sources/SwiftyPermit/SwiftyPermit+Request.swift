@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit+Request.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 01.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -10,19 +10,19 @@ import Foundation
 
 extension SwiftyPermit {
     
-    public func request(_ request: PermissionRequest) {
+    public func request(_ request: SwiftyPermitRequest) {
         
         // Usually check for permission state before trying to request it (again).
         // But they're are some exceptions: The NetworkPermission can't be checked
         // without actually requesting it. And we do cover this in the `isGranted`
         // check by throwing an error. So avoid this check here then.
         
-        guard request.permission.isCheckableWithoutRequest else {
+        guard request.permit.isCheckableWithoutRequest else {
             doRequest(request)
             return
         }
         
-        isGranted(request.permission) { [weak self] alreadyGranted in
+        isGranted(request.permit) { [weak self] alreadyGranted in
             
             guard alreadyGranted == false else {
                 request.finish(.success(()))
@@ -41,10 +41,10 @@ extension SwiftyPermit {
         
     }
     
-    private func doRequest(_ request: PermissionRequest) {
+    private func doRequest(_ request: SwiftyPermitRequest) {
         
         // Check: All known permission are handled
-        switch request.permission {
+        switch request.permit {
             
         case .location,
              .userNotification,
@@ -56,10 +56,10 @@ extension SwiftyPermit {
             
         }
         
-        for infoPListEntry in request.permission.requiredInfoPListEntries {
+        for plistEntry in request.permit.requiredPListEntries {
             
-            guard infoPList(contains: infoPListEntry) else {
-                request.finish(.failure(.infoPListEntryMissing(infoPListEntry)))
+            guard infoPList(contains: plistEntry) else {
+                request.finish(.failure(.plistEntryMissing(plistEntry)))
                 return
             }
             
@@ -67,22 +67,22 @@ extension SwiftyPermit {
         
         switch request {
             
-        case let request as LocationPermissionRequest:
+        case let request as SwiftyPermitLocationRequest:
             location.request(request)
             
-        case let request as CameraPermissionRequest:
+        case let request as SwiftyPermitCameraRequest:
             camera.request(request)
             
-        case let request as PhotoLibraryPermissionRequest:
+        case let request as SwiftyPermitPhotoLibraryRequest:
             photoLibrary.request(request)
             
-        case let request as UserNotificationPermissionRequest:
+        case let request as SwiftyPermitUserNotificationRequest:
             userNotification.request(request)
             
-        case let request as LocalNetworkPermissionRequest:
+        case let request as SwiftyPermitLocalNetworkRequest:
             localNetwork.request(request)
  
-        case let request as TrackingPermissionRequest:
+        case let request as SwiftyPermitTrackingRequest:
             tracking.request(request)
             
         default:

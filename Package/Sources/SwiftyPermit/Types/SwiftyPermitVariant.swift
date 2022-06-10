@@ -1,6 +1,6 @@
 //
-//  Permission.swift
-//  Permission-Manager
+//  SwiftyPermitVariant.swift
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 31.08.20.
 //  Copyright © 2020 hibento. All rights reserved.
@@ -8,14 +8,13 @@
 
 import Foundation
 
-public enum Permission: Codable,
-                        Hashable,
-                        Equatable,
-                        CustomStringConvertible,
-                        CustomDebugStringConvertible {
+public enum SwiftyPermitVariant: Hashable,
+                                 Equatable,
+                                 CustomStringConvertible,
+                                 CustomDebugStringConvertible {
     
-    case location(SwiftyPermit.Location.Variant)
-    case userNotification
+    case location(SwiftyPermitLocationVariant)
+    case userNotification(SwiftyPermitUserNotificationVariant)
     case cameraVideo
     case photoLibrary
     case localNetwork
@@ -56,12 +55,12 @@ public enum Permission: Codable,
     var isCheckableWithoutRequest: Bool {
         
         switch self {
-        
+            
         case .location,
-             .userNotification,
-             .cameraVideo,
-             .photoLibrary,
-             .tracking:
+                .userNotification,
+                .cameraVideo,
+                .photoLibrary,
+                .tracking:
             return true
             
         case .localNetwork:
@@ -71,13 +70,13 @@ public enum Permission: Codable,
         
     }
     
-    var requiredInfoPListEntries: [PermissionInfoPListEntry] {
+    var requiredPListEntries: [SwiftyPermitPListEntry] {
         
         switch self {
             
         case .location(let locationPermission):
             return [locationPermission.requiredInfoPListKey]
-
+            
         case .userNotification:
             return []
             
@@ -99,23 +98,23 @@ public enum Permission: Codable,
     
     // MARK: - Equatable
     
-    public static func == (lhs: Permission, rhs: Permission) -> Bool {
+    public static func == (lhs: SwiftyPermitVariant, rhs: SwiftyPermitVariant) -> Bool {
         
         // Make sure all known permission are handled.
         switch lhs {
-        
+            
         case .location,
-             .userNotification,
-             .cameraVideo,
-             .photoLibrary,
-             .localNetwork,
-             .tracking:
+                .userNotification,
+                .cameraVideo,
+                .photoLibrary,
+                .localNetwork,
+                .tracking:
             break
-        
+            
         }
         
         switch (lhs, rhs) {
-        
+            
         case (.location(let lhsRequestType), .location(let rhsRequestType)):
             return lhsRequestType == rhsRequestType
             
@@ -130,13 +129,13 @@ public enum Permission: Codable,
             
         case (.localNetwork, .localNetwork):
             return true
-         
+            
         case (.tracking, .tracking):
             return true
             
         default:
             return false
-        
+            
         }
         
     }

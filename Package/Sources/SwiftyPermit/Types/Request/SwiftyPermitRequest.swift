@@ -1,6 +1,6 @@
 //
-//  PermissionRequest.swift
-//  Permission-Manager
+//  SwiftyPermitRequest.swift
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 31.08.20.
 //  Copyright © 2020 hibento. All rights reserved.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class PermissionRequest: CustomStringConvertible {
+public class SwiftyPermitRequest: CustomStringConvertible {
     
     // MARK: - Variables
     
     /// Requested permission,
     /// e.g. gallery, camera or location
-    public let permission: Permission
+    public let permit: SwiftyPermitVariant
     
     /// Escale permission if necessary,
     /// e.g. location accuracy or from 'whenInUse' to 'Always'
@@ -25,12 +25,12 @@ public class PermissionRequest: CustomStringConvertible {
         
     // MARK: - Relationships
     
-    private let completion: (Result<Void, PermissionError>) -> Void
+    private let completion: (Result<Void, SwiftyPermitError>) -> Void
     
     // MARK: - Properties
     
     public var description: String {
-        return permission.description
+        return permit.description
     }
     
     var manager: SwiftyPermit {
@@ -39,12 +39,12 @@ public class PermissionRequest: CustomStringConvertible {
     
     // MARK: - Initializer
     
-    public init(permission: Permission,
+    public init(permit: SwiftyPermitVariant,
                 escalateIfNecessary: Bool,
                 openSettingsIfNecessary: SwiftyPermit.OpenSettings?,
-                _ completion: @escaping (Result<Void, PermissionError>) -> Void) {
+                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
         
-        self.permission = permission
+        self.permit = permit
         self.escalateIfNecessary = escalateIfNecessary
         self.openSettingsIfNecessary = openSettingsIfNecessary
         
@@ -56,16 +56,16 @@ public class PermissionRequest: CustomStringConvertible {
         SwiftyPermit.shared.request(self)
     }
     
-    public final func finish(_ result: Result<Void, PermissionError>) {
+    public final func finish(_ result: Result<Void, SwiftyPermitError>) {
         
         // Ensure we're caching this permission state.
         switch result {
             
         case .failure:
-            manager.lastKnownPermissionStates[permission] = false
+            manager.lastKnownPermitStates[permit] = false
 
         case .success:
-            manager.lastKnownPermissionStates[permission] = true
+            manager.lastKnownPermitStates[permit] = true
 
         }
 

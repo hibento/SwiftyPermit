@@ -1,6 +1,6 @@
 //
 //  SwiftyPermitLocation.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 01.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -35,22 +35,22 @@ extension SwiftyPermit {
  
         // MARK: - Check
         
-        public func isGranted(_ requestVariant: Variant) throws -> Bool {
+        public func isGranted(_ permit: SwiftyPermitLocationVariant) throws -> Bool {
             
             guard manager.state == .initCompleted else {
                 logger.error("SwiftyPermit is not initialized")
-                throw PermissionError.notInitialized
+                throw SwiftyPermitError.notInitialized
             }
             
             let transition = Location.TransitionType(currentState: state,
-                                                     requestVariant: requestVariant)
+                                                     permit: permit)
             
             // If not transition is necessary, then the permission is already granted
             return transition.requestIsNecessary == false
             
         }
         
-        public func isGranted(_ requestVariant: Variant,
+        public func isGranted(_ permit: SwiftyPermitLocationVariant,
                               _ completion: @escaping (Bool) -> Void) {
             
             func completionHandler(_ result: Bool) {
@@ -63,8 +63,8 @@ extension SwiftyPermit {
                 
                 do {
                     
-                    let permissionGranted = try self.isGranted(requestVariant)
-                    completionHandler(permissionGranted)
+                    let isGranted = try self.isGranted(permit)
+                    completionHandler(isGranted)
                     
                 } catch {
                     completionHandler(false)

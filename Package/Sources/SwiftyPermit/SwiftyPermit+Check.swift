@@ -1,6 +1,6 @@
 //
 //  SwiftyPermit+Check.swift
-//  Permission-Manager
+//  SwiftyPermit
 //
 //  Created by Christian Steffens on 01.09.19.
 //  Copyright © 2019 hibento. All rights reserved.
@@ -12,19 +12,19 @@ extension SwiftyPermit {
     
     /// Combines the requests for several permissions by requesting them async
     /// and simultaneously.
-    public func hasPermissions(_ permissions: [Permission],
-                               _ completion: @escaping ([Permission: Bool?]) -> Void) {
+    public func hasPermits(_ permits: [SwiftyPermitVariant],
+                           _ completion: @escaping ([SwiftyPermitVariant: Bool?]) -> Void) {
         
-        var states: [Permission: Bool?] = [:]
+        var states: [SwiftyPermitVariant: Bool?] = [:]
         let dispatchGroup = DispatchGroup()
         
-        for permission in permissions {
+        for permit in permits {
             
             dispatchGroup.enter()
             
-            isGranted(permission) { granted in
+            isGranted(permit) { granted in
                 
-                states[permission] = granted
+                states[permit] = granted
                 dispatchGroup.leave()
                 
             }
@@ -39,19 +39,19 @@ extension SwiftyPermit {
     
     /// A convenience method for `hasPermission` in terms that for a given set
     /// of permission we're getting back a pure `Boolean` value.
-    public func areGranted(_ permissions: [Permission],
+    public func areGranted(_ permits: [SwiftyPermitVariant],
                            _ completion: @escaping (Bool?) -> Void) {
         
-        hasPermissions(permissions) { permissions in
+        hasPermits(permits) { permits in
             
             let areGranted: Bool?
-                        
-            if permissions.contains(where: { $0.value == nil }) {
+            
+            if permits.contains(where: { $0.value == nil }) {
                 
                 // There's one (1) unknown state, probably NetworkPermission.
                 areGranted = nil
                 
-            } else if permissions.contains(where: { (_, value) in
+            } else if permits.contains(where: { (_, value) in
                 
                 // There's at least one permission explicitly set to false.
                 guard let value = value else {
@@ -75,13 +75,13 @@ extension SwiftyPermit {
     /// Checks the state of the given permission.
     /// It doesn't request the permission if denied, unknown or virgin.
     /// This is a pure state check.
-    public func isGranted(_ permission: Permission,
+    public func isGranted(_ permit: SwiftyPermitVariant,
                           _ completion: @escaping (Bool?) -> Void) {
         
         func completionHandler(_ granted: Bool?) {
             
             // Ensure we're caching this permission state.
-            lastKnownPermissionStates[permission] = granted
+            lastKnownPermitStates[permit] = granted
             
             // Redirect the callback.
             completionQueue.async {
@@ -90,8 +90,8 @@ extension SwiftyPermit {
             
         }
         
-        switch permission {
-        
+        switch permit {
+            
         case .location(let variant):
             location.isGranted(variant, completionHandler(_:))
             
@@ -109,7 +109,7 @@ extension SwiftyPermit {
             
         case .tracking:
             tracking.isGranted(completionHandler(_:))
-
+            
         }
         
     }

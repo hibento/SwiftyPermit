@@ -12,9 +12,7 @@ import Combine
 public final class SwiftyPermit: NSObject {
     
     // MARK: - Typealias
-    
-    public typealias RequestCompletion = (Result<Void, SwiftyPermitError>) -> Void
-    public typealias OpenSettings = (@escaping (Bool) -> Void) -> Void
+
     public typealias ReadinessCompletion = ((Result<Void, SwiftyPermitError>) -> Void)
     
     // MARK: - Singleton

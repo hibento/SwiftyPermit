@@ -22,9 +22,9 @@ public final class SwiftyPermitLocationRequest: SwiftyPermitRequest {
     
     public init(_ permit: SwiftyPermitLocationVariant,
                 escalateIfNecessary: Bool = true,
-                openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
+                openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
                 purposeKey: String? = nil,
-                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
+                _ completion: @escaping SwiftyPermitRequestCompletion) {
         
         self.actualPermit = permit
         self.purposeKey = purposeKey

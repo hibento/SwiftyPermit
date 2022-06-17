@@ -17,8 +17,8 @@ public final class SwiftyPermitUserNotificationRequest: SwiftyPermitRequest {
     // MARK: - Initializer
     
     public init(permit: SwiftyPermitUserNotificationVariant = .default,
-                openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
-                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
+                openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
+                _ completion: @escaping SwiftyPermitRequestCompletion) {
         
         self.actualPermit = permit
         

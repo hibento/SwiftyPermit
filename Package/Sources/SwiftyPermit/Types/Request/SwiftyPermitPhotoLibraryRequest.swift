@@ -12,8 +12,8 @@ public final class SwiftyPermitPhotoLibraryRequest: SwiftyPermitRequest {
     
     // MARK: - Initializer
     
-    public init(openSettingsIfNecessary: SwiftyPermit.OpenSettings? = nil,
-                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
+    public init(openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
+                _ completion: @escaping SwiftyPermitRequestCompletion) {
                 
         super.init(permit: .photoLibrary,
                    escalateIfNecessary: false,

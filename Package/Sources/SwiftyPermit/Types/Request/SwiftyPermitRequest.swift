@@ -21,11 +21,11 @@ public class SwiftyPermitRequest: CustomStringConvertible {
     public let escalateIfNecessary: Bool
     
     /// Open / go to app settings if necessary (user denied a previous request)
-    public let openSettingsIfNecessary: SwiftyPermit.OpenSettings?
+    public let openSettingsIfNecessary: SwiftyPermitOpenSettings?
         
     // MARK: - Relationships
     
-    private let completion: (Result<Void, SwiftyPermitError>) -> Void
+    private let completion: SwiftyPermitRequestCompletion
     
     // MARK: - Properties
     
@@ -41,8 +41,8 @@ public class SwiftyPermitRequest: CustomStringConvertible {
     
     public init(permit: SwiftyPermitVariant,
                 escalateIfNecessary: Bool,
-                openSettingsIfNecessary: SwiftyPermit.OpenSettings?,
-                _ completion: @escaping (Result<Void, SwiftyPermitError>) -> Void) {
+                openSettingsIfNecessary: SwiftyPermitOpenSettings?,
+                _ completion: @escaping SwiftyPermitRequestCompletion) {
         
         self.permit = permit
         self.escalateIfNecessary = escalateIfNecessary

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 extension SwiftyPermit.LocalNetwork {
     
@@ -44,8 +45,10 @@ extension SwiftyPermit.LocalNetwork {
         }()
         
         let completion: Completion
+                
+        // MARK: - Subscriptions
         
-        private (set) var timer: Timer?
+        private var timerSubscriptions = Set<AnyCancellable>()
         
         // MARK: - Initializer
         
@@ -63,50 +66,59 @@ extension SwiftyPermit.LocalNetwork {
             // Nothing (yet)
         }
         
-        private func createTimer() -> Timer {
+        private func setupTimer() {
             
-            return Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] timer in
- 
-                guard let self = self else {
-                    logger.info("Deinit")
-                    timer.invalidate()
-                    return
-                }
+            guard timerSubscriptions.isEmpty else {
+                logger.info("LocalNetworkCheck is already running ...")
+                return
+            }
+            
+            logger.info("LocalNetworkCheck is starting ...")
+                        
+            Timer.publish(every: 2, on: .main, in: .common)
+                .autoconnect()
+                .sink { [weak self] _ in
+                    self?.firedTimer()
+                }.store(in: &timerSubscriptions)
+
+        }
+        
+        private func firedTimer() {
+            
+            // This is important as it's ensures the potential system
+            // dialog for the permission (result in an inactive state)
+            // will keep the timer running while ignoring the current
+            // publishing state. In short: Wait for the user's decision!
+            guard UIApplication.shared.applicationState == .active else {
+                logger.info("LocalNetworkCheck postponed ...")
+                return
+            }
+            
+            // First timer call (i.e. isPublishing is not set), we need
+            // to setup a publisher and see if this works, i.e. we've got
+            // the permissions. If the publisher has already been started
+            // (ergo this is the second call) this would mean the permission
+            // has not been granted, because otherwise the callback from the
+            // publisher would have stopped the timer.
+            
+            if isPublishing {
                 
-                // This is important as it's ensures the potential system
-                // dialog for the permission (result in an inactive state)
-                // will keep the timer running while ignoring the current
-                // publishing state. In short: Wait for the user's decision!
-                guard UIApplication.shared.applicationState == .active else {
-                    logger.info("LocalNetworkCheck postponed ...")
-                    return
-                }
-                
-                // First timer call (i.e. isPublishing is not set), we need
-                // to setup a publisher and see if this works, i.e. we've got
-                // the permissions. If the publisher has already been started
-                // (ergo this is the second call) this would mean the permission
-                // has not been granted, because otherwise the callback from the
-                // publisher would have stopped the timer.
-                
-                if self.isPublishing {
+                // Wait two (2) cycles before finally declaring we're done.
+                if didFailedInCurrentCycle {
                     
-                    // Wait two (2) cycles before finally declaring we're done.
-                    if self.didFailedInCurrentCycle {
-                        logger.info("LocalNetworkCheck: IsNotGranted")
-                        self.completionHandler(false)
-                    } else {
-                        self.didFailedInCurrentCycle = true
-                    }
+                    logger.info("LocalNetworkCheck: IsNotGranted")
+                    completionHandler(false)
                     
                 } else {
-                    
-                    logger.info("LocalNetworkCheck is running ...")
-                    
-                    self.isPublishing = true
-                    self.service.publish()
-                    
+                    didFailedInCurrentCycle = true
                 }
+                
+            } else {
+                
+                logger.info("LocalNetworkCheck is running ...")
+                
+                isPublishing = true
+                service.publish()
                 
             }
             
@@ -125,9 +137,7 @@ extension SwiftyPermit.LocalNetwork {
         
         private func completionHandler(_ isGranted: Bool) {
             
-            timer?.invalidate()
-            timer = nil
-            
+            timerSubscriptions.removeAll()            
             isPublishing = false
             didFailedInCurrentCycle = false
             service.stop()
@@ -139,17 +149,7 @@ extension SwiftyPermit.LocalNetwork {
         // MARK: - IsGranted
         
         func execute() throws {
-
-            guard timer == nil else {
-                logger.info("LocalNetworkCheck is already running ...")
-                return
-            }
-                        
-            let timer = createTimer()
-            self.timer = timer
-                        
-            logger.info("LocalNetworkCheck is starting ...")
-
+            setupTimer()
         }
         
     }

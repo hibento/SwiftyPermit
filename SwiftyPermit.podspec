@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "SwiftyPermit"
-  spec.version      = "0.1.6"
+  spec.version      = "0.1.7"
   spec.summary      = "Manages permissions (e.g. camera, location etc.)"
   spec.description =  <<-DESC
     Manages permissions (e.g. camera, location etc.) on iOS-Devices with ease

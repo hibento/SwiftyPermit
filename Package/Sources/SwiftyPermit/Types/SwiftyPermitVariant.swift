@@ -70,12 +70,12 @@ public enum SwiftyPermitVariant: Hashable,
         
     }
     
-    var requiredPListEntries: [SwiftyPermitPListEntry] {
+    var requiredPlistEntries: [SwiftyPermitPlistEntry] {
         
         switch self {
             
         case .location(let locationPermission):
-            return [locationPermission.requiredInfoPListKey]
+            return [locationPermission.requiredInfoPlistKey]
             
         case .userNotification:
             return []

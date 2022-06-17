@@ -1,5 +1,5 @@
 //
-//  SwiftyPermitPListEntry.swift
+//  SwiftyPermitPlistEntry.swift
 //  SwiftyPermit
 //
 //  Created by Christian Steffens on 31.08.20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum SwiftyPermitPListEntry {
+public enum SwiftyPermitPlistEntry {
     
     case keyValue(String)
     case arrayValue(array: String, value: String)

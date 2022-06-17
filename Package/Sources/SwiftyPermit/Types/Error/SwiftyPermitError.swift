@@ -18,7 +18,7 @@ public enum SwiftyPermitError: Error {
     case restricted
     case notDetermined
     
-    case plistEntryMissing(SwiftyPermitPListEntry)
+    case plistEntryMissing(SwiftyPermitPlistEntry)
     case location(SwiftyPermitLocationError)
     
 }

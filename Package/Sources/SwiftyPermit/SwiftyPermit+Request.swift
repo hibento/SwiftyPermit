@@ -56,9 +56,9 @@ extension SwiftyPermit {
             
         }
         
-        for plistEntry in request.permit.requiredPListEntries {
+        for plistEntry in request.permit.requiredPlistEntries {
             
-            guard infoPList(contains: plistEntry) else {
+            guard infoPlist(contains: plistEntry) else {
                 request.finish(.failure(.plistEntryMissing(plistEntry)))
                 return
             }

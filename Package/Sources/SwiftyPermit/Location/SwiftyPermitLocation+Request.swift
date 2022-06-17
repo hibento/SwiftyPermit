@@ -97,9 +97,9 @@ extension SwiftyPermit.Location {
         }
         
         let dictionary: String = "NSLocationTemporaryUsageDescriptionDictionary"
-        let entry: SwiftyPermitPListEntry = .dictionaryKey(dictionary: dictionary, key: purposeKey)
+        let entry: SwiftyPermitPlistEntry = .dictionaryKey(dictionary: dictionary, key: purposeKey)
         
-        guard let purposeValue = manager.infoPListValue(entry) else {
+        guard let purposeValue = manager.infoPlistValue(entry) else {
             logger.error("PurposeKey \(purposeKey) not found")
             request.finish(.failure(.plistEntryMissing(entry)))
             return

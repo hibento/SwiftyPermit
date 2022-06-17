@@ -19,7 +19,7 @@ public enum SwiftyPermitLocationVariant: Codable,
     
     // MARK: - Properties
     
-    var requiredInfoPListKey: SwiftyPermitPListEntry {
+    var requiredInfoPlistKey: SwiftyPermitPlistEntry {
         switch self {
             
         case .always:

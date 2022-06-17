@@ -126,6 +126,8 @@ extension SwiftyPermit.LocalNetwork {
         private func completionHandler(_ isGranted: Bool) {
             
             timer?.invalidate()
+            timer = nil
+            
             isPublishing = false
             didFailedInCurrentCycle = false
             service.stop()

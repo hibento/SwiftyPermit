@@ -8,17 +8,27 @@
 
 import Foundation
 
-public final class SwiftyPermitLocalNetworkRequest: SwiftyPermitRequest {
+public final class SwiftyPermitLocalNetworkRequest: SwiftyPermitRequestable {
+    
+    // MARK: - Variables
+    
+    public let permitVariant: SwiftyPermitVariant = .localNetwork
+    
+    public let permitEscalateIfNecessary: Bool = false
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
     
     // MARK: - Initializer
     
     public init(openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
                 _ completion: @escaping SwiftyPermitRequestCompletion) {
                 
-        super.init(permit: .localNetwork,
-                   escalateIfNecessary: false,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
         
     }
     

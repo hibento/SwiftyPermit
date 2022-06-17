@@ -8,17 +8,27 @@
 
 import Foundation
 
-public final class SwiftyPermitPhotoLibraryRequest: SwiftyPermitRequest {
+public final class SwiftyPermitPhotoLibraryRequest: SwiftyPermitRequestable {
+    
+    // MARK: - Variables
+    
+    public let permitVariant: SwiftyPermitVariant = .photoLibrary
+    
+    public let permitEscalateIfNecessary: Bool = false
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
     
     // MARK: - Initializer
     
     public init(openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
                 _ completion: @escaping SwiftyPermitRequestCompletion) {
                 
-        super.init(permit: .photoLibrary,
-                   escalateIfNecessary: false,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
         
     }
     

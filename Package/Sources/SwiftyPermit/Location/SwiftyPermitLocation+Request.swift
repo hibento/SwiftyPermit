@@ -72,7 +72,7 @@ extension SwiftyPermit.Location {
     }
     
     private func whenInUseToAlways(_ request: SwiftyPermitLocationRequest) {
-        guard request.escalateIfNecessary else {
+        guard request.permitEscalateIfNecessary else {
             logger.warning("Always requested, but escalation prohibited")
             request.finish(.failure(.deniedUser))
             return
@@ -84,7 +84,7 @@ extension SwiftyPermit.Location {
     
     private func reducedToFullAccuracy(_ request: SwiftyPermitLocationRequest) {
 
-        guard request.escalateIfNecessary else {
+        guard request.permitEscalateIfNecessary else {
             logger.warning("Full accuracy requested, but escalation prohibited")
             request.finish(.failure(.deniedUser))
             return
@@ -155,7 +155,7 @@ extension SwiftyPermit.Location {
     
     private func deniedByUser(_ request: SwiftyPermitLocationRequest) {
 
-        guard request.escalateIfNecessary else {
+        guard request.permitEscalateIfNecessary else {
             logger.warning("LocationPermission whenInUse was denied by user")
             request.finish(.failure(.deniedUser))
             return
@@ -188,7 +188,7 @@ extension SwiftyPermit.Location {
             manager.openAppSettings()
         }
         
-        guard let openSettingsIfNecessary = request.openSettingsIfNecessary else {
+        guard let openSettingsIfNecessary = request.permitOpenSettingsIfNecessary else {
             goToSettings()
             return
         }

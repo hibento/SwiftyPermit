@@ -8,17 +8,27 @@
 
 import Foundation
 
-public final class SwiftyPermitTrackingRequest: SwiftyPermitRequest {
+public final class SwiftyPermitTrackingRequest: SwiftyPermitRequestable {
+    
+    // MARK: - Variables
+    
+    public let permitVariant: SwiftyPermitVariant = .tracking
+    
+    public let permitEscalateIfNecessary: Bool = false
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
     
     // MARK: - Initializer
     
     public init(openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
                 _ completion: @escaping SwiftyPermitRequestCompletion) {
                 
-        super.init(permit: .tracking,
-                   escalateIfNecessary: false,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
         
     }
     

@@ -8,15 +8,29 @@
 
 import Foundation
 
-public final class SwiftyPermitLocationRequest: SwiftyPermitRequest {
+public final class SwiftyPermitLocationRequest: SwiftyPermitRequestable {
     
     // MARK: - Variables
     
     let actualPermit: SwiftyPermitLocationVariant
+        
+    public var permitEscalateIfNecessary: Bool
     
     /// Purpose key for system permission dialog, strictly optional and
     /// for now only needed for escalation in location permission's accuracy.
     let purposeKey: String?
+    
+    // MARK: - Properties
+    
+    public var permitVariant: SwiftyPermitVariant {
+        return .location(actualPermit)
+    }
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
     
     // MARK: - Initializer
     
@@ -27,12 +41,11 @@ public final class SwiftyPermitLocationRequest: SwiftyPermitRequest {
                 _ completion: @escaping SwiftyPermitRequestCompletion) {
         
         self.actualPermit = permit
+        self.permitEscalateIfNecessary = escalateIfNecessary
         self.purposeKey = purposeKey
         
-        super.init(permit: .location(permit),
-                   escalateIfNecessary: escalateIfNecessary,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
     
     }
     

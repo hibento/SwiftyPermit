@@ -8,17 +8,27 @@
 
 import Foundation
 
-public final class SwiftyPermitCameraRequest: SwiftyPermitRequest {
-
+public final class SwiftyPermitCameraRequest: SwiftyPermitRequestable {
+    
+    // MARK: - Constants
+    
+    public let permitVariant: SwiftyPermitVariant = .cameraVideo
+    
+    public let permitEscalateIfNecessary: Bool = false
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
+    
     // MARK: - Initializer
     
     public init(openSettingsIfNecessary: SwiftyPermitOpenSettings? = nil,
                 _ completion: @escaping SwiftyPermitRequestCompletion) {
-        
-        super.init(permit: .cameraVideo,
-                   escalateIfNecessary: false,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+       
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
         
     }
     

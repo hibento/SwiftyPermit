@@ -28,7 +28,8 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
+        
     }
     
     // MARK: - Camera & Photos
@@ -49,7 +50,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
     func requestCamera() {
@@ -68,7 +69,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
     // MARK: - User Notification
@@ -89,7 +90,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
     // MARK: - Tracking
@@ -110,7 +111,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
     // MARK: - Location
@@ -131,7 +132,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
     func requestLocationWhenInUseFull() {
@@ -152,7 +153,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
  
     func requestLocationAlwaysReduced() {
@@ -174,7 +175,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
  
     func requestLocationAlwaysFull() {
@@ -196,7 +197,7 @@ struct ContentViewModel {
             
         }
         
-        SwiftyPermit.shared.request(request)
+        request.execute()
     }
     
 }

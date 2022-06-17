@@ -38,7 +38,7 @@ extension SwiftyPermit.Tracking {
                 manager.openAppSettings()
             }
             
-            guard let openSettingsIfNecessary = request.openSettingsIfNecessary else {
+            guard let openSettingsIfNecessary = request.permitOpenSettingsIfNecessary else {
                 goToSettings()
                 return
             }

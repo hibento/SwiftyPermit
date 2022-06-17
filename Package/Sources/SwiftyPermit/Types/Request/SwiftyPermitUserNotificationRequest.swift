@@ -8,11 +8,25 @@
 
 import Foundation
 
-public final class SwiftyPermitUserNotificationRequest: SwiftyPermitRequest {
+public final class SwiftyPermitUserNotificationRequest: SwiftyPermitRequestable {
     
     // MARK: - Variables
     
     let actualPermit: SwiftyPermitUserNotificationVariant
+    
+    public let permitEscalateIfNecessary: Bool = false
+    
+    // MARK: - Relationships
+    
+    public let permitOpenSettingsIfNecessary: SwiftyPermitOpenSettings?
+    
+    public let permitCompletion: SwiftyPermitRequestCompletion
+    
+    // MARK: - Properties
+    
+    public var permitVariant: SwiftyPermitVariant {
+        return .userNotification(actualPermit)
+    }
     
     // MARK: - Initializer
     
@@ -22,10 +36,8 @@ public final class SwiftyPermitUserNotificationRequest: SwiftyPermitRequest {
         
         self.actualPermit = permit
         
-        super.init(permit: .userNotification(actualPermit),
-                   escalateIfNecessary: false,
-                   openSettingsIfNecessary: openSettingsIfNecessary,
-                   completion)
+        self.permitOpenSettingsIfNecessary = openSettingsIfNecessary
+        self.permitCompletion = completion
         
     }
     

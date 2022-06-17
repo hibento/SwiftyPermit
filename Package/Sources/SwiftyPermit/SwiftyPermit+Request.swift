@@ -10,19 +10,19 @@ import Foundation
 
 extension SwiftyPermit {
     
-    public func request(_ request: SwiftyPermitRequest) {
+    func request(_ request: SwiftyPermitRequestable) {
         
         // Usually check for permission state before trying to request it (again).
         // But they're are some exceptions: The NetworkPermission can't be checked
         // without actually requesting it. And we do cover this in the `isGranted`
         // check by throwing an error. So avoid this check here then.
         
-        guard request.permit.isCheckableWithoutRequest else {
+        guard request.permitVariant.isCheckableWithoutRequest else {
             doRequest(request)
             return
         }
         
-        isGranted(request.permit) { [weak self] alreadyGranted in
+        isGranted(request.permitVariant) { [weak self] alreadyGranted in
             
             guard alreadyGranted == false else {
                 request.finish(.success(()))
@@ -41,10 +41,10 @@ extension SwiftyPermit {
         
     }
     
-    private func doRequest(_ request: SwiftyPermitRequest) {
+    private func doRequest(_ request: SwiftyPermitRequestable) {
         
         // Check: All known permission are handled
-        switch request.permit {
+        switch request.permitVariant {
             
         case .location,
              .userNotification,
@@ -56,7 +56,7 @@ extension SwiftyPermit {
             
         }
         
-        for plistEntry in request.permit.requiredPlistEntries {
+        for plistEntry in request.permitVariant.requiredPlistEntries {
             
             guard infoPlist(contains: plistEntry) else {
                 request.finish(.failure(.plistEntryMissing(plistEntry)))

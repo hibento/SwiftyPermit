@@ -65,10 +65,7 @@ extension SwiftyPermit {
             manager.waitForReadiness {
                 
                 do {
-                    
-                    let permissionGranted = try self.isGranted()
-                    completionHandler(permissionGranted)
-                    
+                    completionHandler(try self.isGranted())
                 } catch {
                     completionHandler(false)
                 }

@@ -23,7 +23,7 @@ public struct SwiftyPermitChanged: CustomDebugStringConvertible {
         return "PermissionState \(permit.debugDescription): \(wasGranted?.description ?? "?") → \(isGranted?.description ?? "?")"
     }
     
-    public var permissionDidChange: Bool {
+    public var didChange: Bool {
         
         if let wasGranted = wasGranted,
            let isGranted = isGranted {

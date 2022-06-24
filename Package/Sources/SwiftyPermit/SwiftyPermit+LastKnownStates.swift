@@ -84,9 +84,9 @@ extension SwiftyPermit {
     func processLastKnownState(old: [SwiftyPermitVariant: Bool?],
                                new: [SwiftyPermitVariant: Bool?]) {
         for (permit, isGranted) in new {
-            permissionChanged.send(.init(permit: permit,
-                                         wasGranted: (old[permit]) ?? nil,
-                                         isGranted: isGranted))
+            didChange.send(.init(permit: permit,
+                                 wasGranted: (old[permit]) ?? nil,
+                                 isGranted: isGranted))
         }
         
     }

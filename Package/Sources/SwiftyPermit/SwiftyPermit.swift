@@ -133,7 +133,7 @@ public final class SwiftyPermit: NSObject {
     
     // MARK: - Publisher
     
-    public let permissionChanged = PassthroughSubject<SwiftyPermitChanged, Never>()
+    public let didChange = PassthroughSubject<SwiftyPermitChanged, Never>()
     
     // MARK: - Relationships
     
@@ -162,7 +162,7 @@ public final class SwiftyPermit: NSObject {
     }
     
     public var localNetworkSwiftyPermitRequestedOnce: Bool {
-        return LocalNetwork.permissionRequestedOnce
+        return LocalNetwork.permitRequestedOnce
     }
     
     // MARK: - Initializer

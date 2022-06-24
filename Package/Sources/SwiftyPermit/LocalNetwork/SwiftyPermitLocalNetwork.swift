@@ -71,7 +71,7 @@ extension SwiftyPermit {
                 // Remember: A mere permission check already triggers the dialog,
                 // so don't do anything before the user did not indeed requested
                 // it once.
-                guard Self.permissionRequestedOnce else {
+                guard Self.permitRequestedOnce else {
                     logger.warning("Requesting NetworkPermission is not possible without requesting it - please explicitly request it at least once")
                     completionHandler(nil)
                     return

@@ -23,7 +23,7 @@ struct SwiftyPermitExampleApp: App {
     init() {
         
         SwiftyPermit.shared
-            .permissionChanged
+            .didChange
             .sink { permissionChanged in
                 print(permissionChanged)
             }

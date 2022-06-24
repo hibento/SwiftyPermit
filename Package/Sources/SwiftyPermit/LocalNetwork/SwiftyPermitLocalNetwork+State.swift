@@ -28,7 +28,7 @@ extension SwiftyPermit.LocalNetwork {
             // At this point it's important to persist the fact, that the permission
             // state for the local network has been requested once (explicitly).
             // So we're free to request it any time from now (implicitly).
-            Self.permissionRequestedOnce = true
+            Self.permitRequestedOnce = true
             
         } catch let error as SwiftyPermitError {
             completion(.failure(error))

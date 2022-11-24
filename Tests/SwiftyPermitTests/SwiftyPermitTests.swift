@@ -1,5 +1,5 @@
 import XCTest
-@testable import Permission_Manager
+@testable import SwiftyPermit
 
 final class SwiftyPermitTests: XCTestCase {
     func testExample() throws {

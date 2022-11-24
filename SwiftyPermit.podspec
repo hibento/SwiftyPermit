@@ -18,7 +18,7 @@ Pod::Spec.new do |spec|
   }
 
   spec.source_files =
-    "Package/Sources/SwiftyPermit/**/*.{h,m,swift,strings}"
+    "Sources/SwiftyPermit/**/*.{h,m,swift,strings}"
   spec.pod_target_xcconfig = {
     'PRODUCT_BUNDLE_IDENTIFIER': 'de.hibento.SwiftyPermit'
   }

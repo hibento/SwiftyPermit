@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ECB90E4828535907000FEB8F /* SwiftyPermit in Frameworks */ = {isa = PBXBuildFile; productRef = ECB90E4728535907000FEB8F /* SwiftyPermit */; };
+		EC15447D29300E3400DEA18E /* SwiftyPermit in Frameworks */ = {isa = PBXBuildFile; productRef = EC15447C29300E3400DEA18E /* SwiftyPermit */; };
 		ECC066DB2850E1CA00C40881 /* SwiftyPermitExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC066DA2850E1CA00C40881 /* SwiftyPermitExampleApp.swift */; };
 		ECC066DD2850E1CA00C40881 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC066DC2850E1CA00C40881 /* ContentView.swift */; };
 		ECC066DF2850E1CC00C40881 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECC066DE2850E1CC00C40881 /* Assets.xcassets */; };
@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC15447B29300E0300DEA18E /* SwiftyPermit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyPermit; path = ..; sourceTree = "<group>"; };
 		EC60B6BD2851415700217DB7 /* SwiftyPermitExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SwiftyPermitExample-Info.plist"; sourceTree = SOURCE_ROOT; };
 		ECC066D72850E1CA00C40881 /* SwiftyPermitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyPermitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC066DA2850E1CA00C40881 /* SwiftyPermitExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyPermitExampleApp.swift; sourceTree = "<group>"; };
@@ -30,16 +31,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB90E4828535907000FEB8F /* SwiftyPermit in Frameworks */,
+				EC15447D29300E3400DEA18E /* SwiftyPermit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC15447A29300E0300DEA18E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				EC15447B29300E0300DEA18E /* SwiftyPermit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		ECC066CE2850E1CA00C40881 = {
 			isa = PBXGroup;
 			children = (
+				EC15447A29300E0300DEA18E /* Packages */,
 				ECC066D92850E1CA00C40881 /* SwiftyPermitExample */,
 				ECC066D82850E1CA00C40881 /* Products */,
 				ECC066FC2850E5FC00C40881 /* Frameworks */,
@@ -101,7 +111,7 @@
 			);
 			name = SwiftyPermitExample;
 			packageProductDependencies = (
-				ECB90E4728535907000FEB8F /* SwiftyPermit */,
+				EC15447C29300E3400DEA18E /* SwiftyPermit */,
 			);
 			productName = "Permission Manager Example";
 			productReference = ECC066D72850E1CA00C40881 /* SwiftyPermitExample.app */;
@@ -413,7 +423,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		ECB90E4728535907000FEB8F /* SwiftyPermit */ = {
+		EC15447C29300E3400DEA18E /* SwiftyPermit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftyPermit;
 		};

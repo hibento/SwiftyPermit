@@ -36,7 +36,7 @@ extension SwiftyPermit.LocalNetwork {
         lazy var service: NetService = {
             
             let service: NetService = .init(domain: "local.",
-                                            type: "_lnp._tcp.",
+                                            type: "_lnp._tcp",
                                             name: "LocalNetworkPrivacy",
                                             port: 1100)
             service.delegate = self

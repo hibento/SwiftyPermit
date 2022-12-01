@@ -6,7 +6,7 @@
 	<string>Tracking Usage Description</string>
 	<key>NSBonjourServices</key>
 	<array>
-		<string>_lnp._tcp.</string>
+		<string>_lnp._tcp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera Usage Description</string>

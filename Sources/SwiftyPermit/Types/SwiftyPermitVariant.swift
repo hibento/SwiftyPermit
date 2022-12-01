@@ -90,7 +90,7 @@ public enum SwiftyPermitVariant: Hashable,
             return [.keyValue("NSUserTrackingUsageDescription")]
             
         case .localNetwork:
-            return [.arrayValue(array: "NSBonjourServices", value: "_lnp._tcp.")]
+            return [.arrayValue(array: "NSBonjourServices", value: "_lnp._tcp")]
             
         }
         

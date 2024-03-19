@@ -339,7 +339,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftyPermitExample/Preview Content\"";
-				DEVELOPMENT_TEAM = FXE6A34X5W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SwiftyPermitExample-Info.plist";
@@ -373,7 +372,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftyPermitExample/Preview Content\"";
-				DEVELOPMENT_TEAM = FXE6A34X5W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SwiftyPermitExample-Info.plist";
